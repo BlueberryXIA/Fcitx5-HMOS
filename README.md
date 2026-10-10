@@ -1,27 +1,33 @@
 # 一个小输入法 / A Little Input Method
 
-> **项目名**：Fcitx5_HMOS
-> **应用显示名**：一个小输入法（英文 A Little Input Method）
-
 将 [Fcitx5-Android](https://github.com/fcitx5-android/fcitx5-android) 及其 Rime 插件移植到 **HarmonyOS NEXT（API 26.0.0）**。
 
 当前仓库已经可以构建出一个**包含真实 Rime 引擎的输入法 HAP**，同时 **fcitx5 core 5.1.23 及其 lua / rime 插件也已成功交叉编译为 OHOS `arm64-v8a` 库**。
 
 ---
 
-## ⚠️ 重要声明：关于 AI 参与与安全性
+## 声明：关于 AI 参与与安全性
 
-作者目前为**高三在读学生**。受学业时间限制，本项目在开发过程中**大量使用了 AI 辅助生成**——包括架构设计、C++ 原生层、ArkTS 界面、构建脚本与文档。
+作者目前为**高三在读学生**。受学业时间限制，本项目在开发过程中**大量使用了 AI 辅助生成**——包括C++ 原生层、UI界面、构建脚本与文档，整体代码架构由人工完成。并且作者只会Java，几乎不会C++（不嘻嘻）。
 
 由此带来的实际情况：
 
 - **代码可靠性与安全性未经系统性审计，存疑。**
 - 学习与借鉴时请自行甄别。**不建议直接用于生产环境，也不建议用于处理敏感信息。**
-- 尤其注意：**本项目是一个输入法。启用后它会接触到你在其他所有应用中的按键输入。** 请充分评估这一风险后，再决定是否安装、启用。
+- 尤其注意：**本项目是一个输入法。启用后它会接触到您在其他所有应用中的按键输入。** 请充分评估这一风险后，再决定是否安装、启用。
 
-作者承诺：**2027 年高考结束后**，将对项目中所有涉及 AI 生成的内容进行系统性审查或重构，以保证其安全性。在此之前，请把本项目视为**学习与实验用途**。
+承诺：2027 年高考结束后，将对项目中所有涉及 AI 生成的内容进行审查或重构，以保证其安全性。在此之前，请把本项目视为**学习与实验用途**。
 
 本声明同样展示在应用内首页。
+
+文档的生成有AI参与，AI标注分为以下类型：
+
+| 标注类型 | 编写方式 |
+| 无标注 | 该标题下内容完全由人工完成编写工作，可信度最高 |
+| 由AI辅助生成 | 该标题下内容由AI阅读代码及我的简述后先行生成，经人工检查并修正，可信度较高 |
+| 由AI生成 | 该标题下内容完全由AI阅读代码及我的简述后生成，烦请自行斟酌准确性 |
+
+注释由AI阅读代码后生成，请自行斟酌准确性。***作者比较懒且高三比较忙，懒！***
 
 ---
 
@@ -31,9 +37,9 @@
 
 - 发现**侵权**内容（包括无意间引入的、许可证不兼容的代码或资源），请邮件告知，会尽快处理
 - **问题反馈、功能建议**：邮件或在本仓库提交 issue 均可
-- 感谢每一份反馈——尤其是具体的复现步骤和日志，它们比笼统的描述有用得多
+- 感谢每一份反馈，尤其是具体的复现步骤和日志，它们比笼统的描述有用得多（人话：反馈时请尽量提供复现步骤和日志）
 
-**关于 Pull Request 的致歉**：作者目前高三在读，时间与精力有限，**无法保证及时审阅和合并 PR**。如果你提交了 PR 而迟迟没有回应，并非不重视——请见谅。急切的改动建议先发 issue 讨论，以免你的工作白费。
+**关于 Pull Request 的致歉**：作者目前高三在读，时间与精力有限，**无法保证及时审阅和合并 PR**。如果您提交了 PR 而迟迟没有回应，并非不重视——请见谅。改动建议先发 issue ，以免您的工作白费。
 
 ---
 
@@ -43,8 +49,7 @@
 
 选择它的原因：需求是「可以被学习和借鉴，但不允许商业性质的二次分发」。**OSI 认可的许可证不可能禁止商业使用**（[开源定义](https://opensource.org/osd)第 6 条禁止限制特定领域用途），而 AGPL-3.0 实现了最接近的效果——商业使用允许，但只要**分发衍生作品或通过网络提供服务**，就必须以 AGPL 提供完整源码。因此没人能把本项目改一改闭源卖钱。
 
-- **可以**：华为应用市场、F-Droid、Linux 发行版、自行分发
-- **不可以**：Apple App Store（DRM 条款与 GPL 系冲突）
+***小声：做这个其实是因为老父亲给我买了Pura90，但是没注意国行和国际版的芯片不一样，刷不了安卓。然而应用市场里面那个基于rime的输入法收费太贵了，买不起。又非常喜欢Rime，同时先前手机和电脑同时使用积攒了大量的Userdb，并不想抛弃。因此打算自己改一个用。***
 
 第三方组件的许可证审计、兼容性分析以及合规做法见 [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md)。所有许可证全文随 HAP 分发，应用内首页「开源许可」卡片可逐条阅读。
 
@@ -55,10 +60,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 Copyright (C) 2026 Haochen Xia
 ```
 
-版权持有者：**Haochen Xia**（昵称 Blueberry🫐）。署名使用真名，品牌展示使用昵称。
 
-
-## 1. 当前状态
+## 1. 当前状态(由AI生成)
 
 | 组件 | 状态 | 产物 |
 | --- | --- | --- |
@@ -74,13 +77,12 @@ Copyright (C) 2026 Haochen Xia
 | Rime 方案数据 | ✅ 完成 | 内置朙月拼音 / 仓颉五代（librime `data/minimal`） |
 | HAP 打包 | ✅ 完成 | `hvigorw assembleHap` 通过，产物含 `libentry.so` 与方案数据 |
 | **fcitx5 引擎接入 NAPI** | ⏳ 待做 | 库已就绪，尚未在 `libentry.so` 中实例化 `FcitxInstance` |
-| 真机验证 | ⏳ 未进行 | 当前环境无 HarmonyOS 设备，仅验证到「编译 + 链接 + 打包」 |
+| **更多功能的加入** | ⏳ 待做 | 剪贴板，颜文字，灵动字体，九键支持，输入控制，物理键盘支持，平板支持…… |
 
-> **重要**：所有产物都经过交叉编译与链接验证（ELF aarch64、符号完整、依赖的 `NEEDED` 均为系统库），但**尚未在真机上运行过**。首次部署 Rime 数据、键盘面板显示等运行时行为需要在真机上确认。
 
 ---
 
-## 2. 架构
+## 2. 架构(由AI生成)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -112,7 +114,7 @@ Copyright (C) 2026 Haochen Xia
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### 按键数据流
+### 按键数据流(由AI生成)
 
 1. 软键盘按钮 → `KeyboardHub.onKey(keyCode, unicodeChar, modifiers)`
 2. `RimeKeys` 把鸿蒙键码翻译成 **X11 keysym**（librime 的键码约定）
@@ -123,7 +125,7 @@ Copyright (C) 2026 Haochen Xia
 
 ---
 
-## 3. 目录结构
+## 3. 目录结构(由AI生成)
 
 > **`test_file/` 不参与构建，已被 `.gitignore` 排除。** 里面是从上游克隆的参考项目（`fcitx5-android`、`fcitx5-harmony`）与测试用配置（`test_config`）。它们对阅读和本地验证有用，但不是项目源码的一部分。
 
@@ -164,7 +166,7 @@ scripts/
 
 ---
 
-## 4. 环境要求
+## 4. 环境要求(由AI生成)
 
 - **DevEco Studio**（自带 HarmonyOS SDK API 26 与 OHOS NDK）
   - 本仓库在 `/opt/devecostudio` 下验证通过
@@ -187,9 +189,9 @@ scripts/build_engine.sh                  # 编译 librime
 hvigorw assembleHap --no-daemon          # 打包 HAP
 ```
 
-产物：`entry/build/default/outputs/default/entry-default-unsigned.hap`
+生成的HAP包位置：`entry/build/default/outputs/default/entry-default-unsigned.hap`
 
-常用参数：
+参数：
 
 ```bash
 scripts/build_thirdparty.sh --only glog       # 只编译某个依赖
@@ -198,7 +200,7 @@ scripts/build_engine.sh --only librime
 JOBS=8 OHOS_ARCH=arm64-v8a scripts/build_all.sh
 ```
 
-### 国内网络
+### 国内网络(由AI生成)
 
 GitHub 直连经常失败，`fetch_sources.sh` 默认通过 **gh-proxy.com** 加速所有 `github.com` 的 clone 与 release 下载：
 
@@ -223,7 +225,7 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 
 ---
 
-## 6. 移植过程中的关键技术决策
+## 6. 移植过程中的关键技术(由AI生成)
 
 | 问题 | 处理方式 |
 | --- | --- |
@@ -237,7 +239,7 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 | 会话 ID 是 `uintptr_t`（对象地址） | 通过 `napi_create_int64` 以 JS number 传递；48 位地址空间远小于 2^53，无精度损失 |
 | `@LocalStorageLink` 需要字面量键 | 面板页面使用字符串字面量，并用 `RimeStateKey` 注释对应关系 |
 
-### 6.0 运行时踩坑（输入法框架）
+### 6.0 运行时踩坑（输入法框架）(由AI生成)
 
 | 问题 | 现象 | 处理方式 |
 | --- | --- | --- |
@@ -257,7 +259,7 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 | 硬编码 Settings 的 bundle/ability 跳转输入法设置 | 打开后页面空白 | 改用 `inputMethod.getSystemInputMethodConfigAbility()` 取回真实的 `ElementName`；失败再回退到输入法选择器 |
 | 文件夹选择返回的是文档 URI，`fs.listFile` 文档要求沙箱路径 | 枚举不到内容，表现为"未选择文件夹" | URI 与 `fileUri.FileUri(uri).path` 两种形式都尝试，取能列出内容者；并区分"选择器没返回"与"读不到内容"两种报错 |
 
-### 6.2 ArkUI `@Builder` 的参数陷阱
+### 6.2 ArkUI `@Builder` 的参数陷阱(由AI生成)
 
 用 `@Builder` 封装按键时，**只要带了参数就是按值传递**，状态变化时 ArkUI 不会重新执行它。这直接造成了两个可见 bug：
 
@@ -268,7 +270,7 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 
 处理方式：**凡内容依赖组件状态的 UI 一律不用带参 `@Builder`**——要么直接内联（字母键），要么写成无参 `@Builder` 直接读 `this.state`（中/英、翻页、收起、回车）。唯一保留的带参 `PlainKey` 只承载常量标签，且传入的闭包是**晚绑定**的（点击时才求值 `this.firstVisibleIndex()`），因此不受影响。
 
-### 6.3 候选词分页
+### 6.3 候选词分页(由AI辅助生成)
 
 分页改由前端负责，不再依赖 librime 的 `menu/page_size`：
 
@@ -279,7 +281,7 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 
 可用宽度通过 `onAreaChange` 在布局时实测，而不是写死。
 
-### 6.4 由 Rime 配置驱动的设置面板
+### 6.4 由 Rime 配置驱动的设置面板(由AI生成)
 
 键盘左上角的三点按钮打开「方案设置」，内容**全部来自 Rime 配置**，没有任何硬编码的开关列表：
 
@@ -305,7 +307,7 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 
 面板每次打开和每次改动都会**重新从引擎读取**（`getOption`），而不是用本地推断——Rime 自己也会翻动选项（例如按下 Shift 会切换 `ascii_mode`），缓存必然与实际脱节。
 
-### 6.5 配置变更后的重载
+### 6.5 配置变更后的重载(由AI生成)
 
 设置面板读取的内容（方案列表、方案 `switches`）全部来自 Rime 配置，因此**任何部署或方案切换都会让这些数据过期**。处理方式分两个层次：
 
@@ -377,7 +379,7 @@ librime 解析这个路径时（`src/rime/gear/simplifier.cc`）：
 
 数据量只有 1.2 MB，放在 `entry/src/main/resources/rawfile/rime/opencc/`。因为 `extractSharedData()` 只在全新安装时解压，`RimePaths.repairSharedData()` 会在每次启动时**只补齐缺失的**内置文件（绝不覆盖或删除），这样老安装也能拿到新增的 `opencc/`，同时不会动用户导入的配置。
 
-### 6.8 配置替换后必须清掉旧的部署产物
+### 6.8 配置替换后必须清掉旧的部署产物(由AI生成)
 
 部署是**增量**的：librime 只有在方案源文件看起来比 `<user>/build` 下的产物更新时才重建。整体替换配置会让这个时间戳比较失去意义，残留的 `*.table.bin` / `*.prism.bin` 会被当成新方案的产物加载。
 
@@ -385,7 +387,7 @@ librime 解析这个路径时（`src/rime/gear/simplifier.cc`）：
 
 另外，如果在部署进行中请求再次部署，`redeploy()` 不再静默忽略，而是记下 `pendingDeploy`，等当前部署结束再补跑一次。
 
-### 6.8.1 配置变更的两个检测信号
+### 6.8.1 配置变更的两个检测信号(由AI生成)
 
 | 信号 | 覆盖场景 |
 | --- | --- |
@@ -394,7 +396,7 @@ librime 解析这个路径时（`src/rime/gear/simplifier.cc`）：
 
 指纹扫描会跳过 `build/`、`sync/`、`*.userdb/` 这些每次部署都会变化的生成目录，并限制深度与条目数。文件变了但部署戳没变时，说明是绕过应用的直接替换，此时会额外触发一次 `startMaintenance(false)` 重新编译方案表。
 
-### 6.9 librime 的 Lua 插件必须显式拉取
+### 6.9 librime 的 Lua 插件必须显式拉取(由AI生成)
 
 librime 的 `plugins/CMakeLists.txt` 用 `file(GLOB)` 把 `plugins/` 下的**每个子目录**当作插件，而发行版里 `plugins/` 只有 `CMakeLists.txt`、`plugin.cc`、`plugins_module.cc` 三个文件——**没有任何子目录，因此默认不构建任何插件**。
 
@@ -410,7 +412,7 @@ librime-lua 通过 pkg-config 找 Lua（依次尝试 `lua`、`lua54`……），
 
 验证方式见 `scripts/build_host_probe.sh` 的 C 组：一个只含 `lua_translator@test_lua` 的方案，脚本产出 `LUA_WORKS` 候选即为通过。
 
-### 6.10 文件夹导入必须逐条解析（子目录陷阱）
+### 6.10 文件夹导入必须逐条解析（子目录陷阱）(由AI生成)
 
 选择器返回的是**文档 URI**（`file://docs/...`），它**不是普通路径**。把子项拼接到 URI 后面再交给 `fs`，在多数 provider 上会失败：
 
@@ -455,7 +457,7 @@ patch:
 
 配置里的 `wanxiang-lts-zh-hans.gram`（约 410 MB）就是给它用的。目前未打包 octagram 插件。
 
-### 6.12 版本号与诊断窗口
+### 6.12 版本号与诊断窗口(由AI生成)
 
 **版本号**：`entry/src/main/ets/common/AppInfo.ets` 里的 `BUILD` 常量，每交付一次 +1，版本号显示为 `1.0.<BUILD>`；`VERSION_CODE` 由它推导，保证系统认可升级。`AppScope/app.json5` 的 `versionName` / `versionCode` 需同步修改（JSON 无法引用常量）。应用标题下方会显示完整版本串。
 
@@ -472,7 +474,7 @@ patch:
 
 「重新加载配置」按钮同时具备诊断价值：手动重载后正常 ⇒ 自动变更检测有问题；手动重载后依旧 ⇒ 两个进程读的根本不是同一份数据。
 
-### 6.13 输入法扩展是独立沙箱（关键约束）
+### 6.13 输入法扩展是独立沙箱（关键约束）(由AI生成)
 
 **HarmonyOS 的输入法扩展运行在独立进程、且拥有独立数据沙箱。** 应用页与键盘报告的 `shared` 路径字符串相同，但内容是两份：
 
@@ -491,7 +493,7 @@ patch:
 
 诊断面板里的 `[live]` 段是**实时**读取的，用于区分两种失败：`sharedEntries` 若列出 `cn_dicts`、`lua` 等，说明沙箱共享、问题在变更检测；若只有内置文件，说明沙箱隔离。
 
-### 6.14 跨进程传递配置文件（无共享存储可用）
+### 6.14 跨进程传递配置文件（无共享存储可用）(由AI生成)
 
 沙箱隔离之后还有两个硬约束，它们共同决定了导入方案：
 
@@ -514,7 +516,7 @@ patch:
 
 URI 放在事件的 `data` 字段而不是 `parameters`：后者类型是索引签名 `{[key: string]: any}`，ArkTS 不允许用对象字面量构造。
 
-### 6.15 根因：输入法的「安全模式」（基础模式 / 完整体验模式）
+### 6.15 根因：输入法的「安全模式」（基础模式 / 完整体验模式）(由AI生成)
 
 这是整个问题的最终答案。鸿蒙把输入法分两种运行模式：
 
@@ -546,7 +548,7 @@ const mode = inputMethodEngine.getInputMethodAbility().getSecurityMode();
 
 应用页在基础模式下会显示醒目横幅，指引用户去系统设置切换；键盘诊断里也会显示 `securityMode=`。
 
-### 6.16 为什么最终不采用「同进程」
+### 6.16 为什么最终不采用「同进程」(由AI生成)
 
 `module.json5` 的 `extensionAbilities` 支持 `extensionProcessMode`，取值含 `runWithMainProcess`，实测**可以让键盘与主进程同进程**，从而共享数据沙箱与 `RimeEngineService` 单例，一次性消除跨进程问题。
 
@@ -560,7 +562,7 @@ const mode = inputMethodEngine.getInputMethodAbility().getSecurityMode();
 
 `getDiagnostics()` 末尾会附上键盘进程自己的日志尾部，这是确认 URI 是否真的送达的唯一途径。
 
-### 6.17 键盘 UI 参照 fcitx5-android 重写
+### 6.17 键盘 UI 参照 fcitx5-android 重写(由AI生成)
 
 布局、键宽与配色照搬 [fcitx5-android](https://github.com/fcitx5-android/fcitx5-android)，而不是自行发挥：
 
@@ -592,7 +594,7 @@ ABC , !?# 0 = . [↵]
 
 > 一个反复踩到的坑：**本文件所有 `@Builder` 都是零参数**。带参 `@Builder` 使用值语义，状态变化时 ArkUI 不会重新执行它——之前中/英键的标签和翻页箭头的可用状态都被永久冻结。即使传入的是常量也不安全，因为 builder 内部仍会读 `this`。因此按键渲染直接内联在 `ForEach` 中，面板切换读 `this.panel` 而不是传标志位。
 
-### 6.18 语法模型（.gram）支持
+### 6.18 语法模型（.gram）支持(由AI生成)
 
 此前发现 `rime_ice.custom.yaml` 会通过 patch 引入 `grammar:`，而 librime 里 **`grammar` 只有抽象接口**（`src/rime/gear/grammar.h`），实现来自独立插件。现已接入。
 
@@ -655,7 +657,7 @@ grammarLanguage=wanxiang-lts-zh-hans file=/data/.../shared/wanxiang-lts-zh-hans.
 
 > 顺带修掉一个 librime-lua 的上游 bug：它把 `LUA_VERSION` 同时用作 pkg-config 模块名缓存变量和 `pkg_check_modules` 的结果变量，首次配置成功后缓存里变成 `5.4.7`，下次配置就会去找名为 `5.4.7` 的模块而失败。补丁 `scripts/patches/librime-lua/0001-*.patch` 把缓存变量改名为 `RIME_LUA_PKG`。这也是"`--clean` 能过、增量构建过不去"的原因。
 
-### 6.19 导入自定义配置的语义
+### 6.19 导入自定义配置的语义(由AI生成)
 
 「导入配置文件夹」是**整体替换**而非合并：先 `rmdirSync` 递归清空内置方案目录，再复制所选文件夹的内容。这样做是为了让配置包（如雾凇拼音）成为唯一配置源，不会残留内置文件。
 
@@ -666,7 +668,7 @@ grammarLanguage=wanxiang-lts-zh-hans file=/data/.../shared/wanxiang-lts-zh-hans.
 
 `fs.rmdirSync` 文档确认会递归删除目录及其所有子目录与文件。
 
-### 6.1 fcitx5 与 OHOS libc++ 15 的兼容问题
+### 6.20 fcitx5 与 OHOS libc++ 15 的兼容问题(由AI生成)
 
 **这是整个移植中最麻烦的部分。** HarmonyOS NDK（含 hms native）内置的是 **libc++ 15004（LLVM 15）**，而 fcitx5 5.1.23 是按 C++20/23 编写的，两者存在多处缺口。此外 **clang 15 的默认 C++ 标准仍是 gnu++14**（升到 gnu++17 是 clang 16 的事），这一点会影响 CMake 的编译器探测。
 
@@ -689,7 +691,7 @@ grammarLanguage=wanxiang-lts-zh-hans file=/data/.../shared/wanxiang-lts-zh-hans.
 
 ---
 
-## 7. 运行机制
+## 7. 运行机制(由AI辅助生成)
 
 ### 首次启动
 
@@ -727,7 +729,7 @@ grammarLanguage=wanxiang-lts-zh-hans file=/data/.../shared/wanxiang-lts-zh-hans.
 
 ---
 
-## 8. 后续工作
+## 8. 后续工作(由AI辅助生成)
 
 1. **把 fcitx5 引擎接入 NAPI**
    库已经全部构建完成，还差“用起来”这一步：
