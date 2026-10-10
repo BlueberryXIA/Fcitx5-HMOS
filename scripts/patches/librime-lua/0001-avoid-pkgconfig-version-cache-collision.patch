@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Haochen Xia
+#
+librime-lua: stop the Lua pkg-config result from poisoning the next configure
+
+`LUA_VERSION` is declared as a CACHE variable to let callers choose the
+pkg-config module name, but pkg_check_modules also uses `LUA_VERSION` as its
+result variable for the version it found.  After a successful configure the
+cache therefore holds e.g. "5.4.7", and the next configure in the same build
+tree asks pkg-config for a module literally named "5.4.7", fails, and aborts
+with "Lua not found".
+
+Renaming the cache variable keeps the two meanings apart, so an incremental
+rebuild works as well as a clean one.
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,9 +1,9 @@
+-set(LUA_VERSION "lua" CACHE STRING "lua version")
++set(RIME_LUA_PKG "lua" CACHE STRING "lua pkg-config module name")
+ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/lua5.4/lua.h")
+   find_package(PkgConfig)
+   if(PkgConfig_FOUND)
+-    foreach(pkg ${LUA_VERSION} lua54 lua53 lua52 luajit lua51)
++    foreach(pkg ${RIME_LUA_PKG} lua54 lua53 lua52 luajit lua51)
+       pkg_check_modules(LUA IMPORTED_TARGET GLOBAL ${pkg})
+       if(LUA_FOUND)
+ 	break()

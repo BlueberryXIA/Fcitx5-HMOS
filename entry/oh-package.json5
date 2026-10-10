@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Fcitx5 / Rime input method for HarmonyOS NEXT",
+  "main": "",
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "libentry.so": "file:./src/main/cpp/types/libentry"
+  }
+}

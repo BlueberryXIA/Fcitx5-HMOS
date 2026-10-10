@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------------------
+# Build outputs and local configuration
+# ---------------------------------------------------------------------------
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+/.hvigor
+/.appanalyzer
+**/build
+.cxx
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+
+# ---------------------------------------------------------------------------
+# Fetched and generated native sources
+#
+# librime and everything under thirdparty/ -- except the hand-written overlay/
+# and host-probe/ -- is downloaded by scripts/fetch_sources.sh or produced by
+# scripts/build_thirdparty.sh.  Committing it would add roughly 800 MB of
+# third-party code that the build scripts recreate on demand.
+# ---------------------------------------------------------------------------
+/entry/src/main/cpp/librime/
+/entry/src/main/cpp/thirdparty/*
+!/entry/src/main/cpp/thirdparty/overlay/
+!/entry/src/main/cpp/thirdparty/host-probe/
+
+# ---------------------------------------------------------------------------
+# Reference clones and test data
+#
+# fcitx5-android and fcitx5-harmony were read for design reference and take no
+# part in the build; test_config is sample Rime configuration used to exercise
+# the import path.  All three are kept on disk for local work and never
+# committed.
+# ---------------------------------------------------------------------------
+/test_file/

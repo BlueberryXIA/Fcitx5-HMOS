@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Haochen Xia
+#
+--- a/src/lib/fcitx-utils/log.cpp
++++ b/src/lib/fcitx-utils/log.cpp
+@@ -9,6 +9,7 @@
+ #include <charconv>
+ #include <chrono>
+ #include <cstdlib>
++#include <ctime>
+ #include <iostream>
+ #include <memory>
+ #include <mutex>
+@@ -254,7 +255,15 @@
+ 
+             auto timeString = std::format("{:%F %T}", zoned_time);
+ #else
+-            auto timeString = std::format("{:%F %T}", now);
++            // libc++ 15 ships <format> without the chrono formatters, so build
++            // the timestamp with the C library instead.
++            const std::time_t seconds =
++                std::chrono::system_clock::to_time_t(now);
++            std::tm brokenDown{};
++            localtime_r(&seconds, &brokenDown);
++            char timeBuffer[32] = {};
++            std::strftime(timeBuffer, sizeof(timeBuffer), "%F %T", &brokenDown);
++            std::string timeString = timeBuffer;
+ #endif
+             out_ << timeString << " ";
+         } catch (...) {

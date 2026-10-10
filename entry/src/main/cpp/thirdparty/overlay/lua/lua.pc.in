@@ -1,0 +1,14 @@
+# pkg-config metadata for the Lua library built for the HarmonyOS port.
+# Generated from lua.pc.in by the overlay CMakeLists.
+
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+
+Name: Lua
+Description: Lua scripting language (HarmonyOS port)
+Version: @LUA_PC_VERSION@
+Libs: -L${libdir} -llua
+Libs.private: -lm
+Cflags: -I${includedir}

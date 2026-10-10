@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "基于 librime 的鸿蒙输入法"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "一个小输入法的设置界面"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "一个小输入法"
+    },
+    {
+      "name": "ime_label",
+      "value": "一个小输入法"
+    },
+    {
+      "name": "ime_desc",
+      "value": "基于 Rime 引擎的输入法"
+    },
+    {
+      "name": "subtype_chinese_pinyin",
+      "value": "中文（拼音）"
+    },
+    {
+      "name": "subtype_english",
+      "value": "英文"
+    }
+  ]
+}

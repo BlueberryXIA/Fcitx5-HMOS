@@ -1,0 +1,6 @@
+{
+  "name": "libentry.so",
+  "types": "./Index.d.ts",
+  "version": "1.0.0",
+  "description": "Rime engine bindings for the Fcitx5 HarmonyOS input method"
+}

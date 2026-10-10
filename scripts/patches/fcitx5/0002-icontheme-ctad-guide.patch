@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Haochen Xia
+#
+--- a/src/lib/fcitx/icontheme.cpp
++++ b/src/lib/fcitx/icontheme.cpp
+@@ -50,6 +50,12 @@
+ struct VariantOverload : Ts... {
+     using Ts::operator()...;
+ };
++
++// Clang 15 predates P1816 (class template argument deduction from aggregates),
++// so the implicit guide needed to deduce the lambda pack is not generated and
++// the braced uses below fail to compile.  An explicit guide restores it.
++template <class... Ts>
++VariantOverload(Ts...) -> VariantOverload<Ts...>;
+ } // namespace
+ 
+ namespace fcitx {

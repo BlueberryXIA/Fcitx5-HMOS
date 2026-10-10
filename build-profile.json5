@@ -1,0 +1,56 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/home/blueberry/.ohos/config/default_Fcitx5_OHOS_rXT3RvSCU72AR9_iBoukiynLibWkRyVd4y4lYYnaUMw=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A8339E8C8EB4FEFBC6AA5D9D6E3E2CA49D4A46A1525DC163F4DA654A9F8FB5EF0C8EAD66921D1",
+          "profile": "/home/blueberry/.ohos/config/default_Fcitx5_OHOS_rXT3RvSCU72AR9_iBoukiynLibWkRyVd4y4lYYnaUMw=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/home/blueberry/.ohos/config/default_Fcitx5_OHOS_rXT3RvSCU72AR9_iBoukiynLibWkRyVd4y4lYYnaUMw=.p12",
+          "storePassword": "0000001AB1E6A20AFAA5006C85D960D2362DB7D87F9EBF4864E6ABD1FAB7D21C042EB2158142A742B2AF"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

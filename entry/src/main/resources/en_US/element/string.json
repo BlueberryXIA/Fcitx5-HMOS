@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "A HarmonyOS input method built on librime"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Settings for A Little Input Method"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "A Little Input Method"
+    },
+    {
+      "name": "ime_label",
+      "value": "A Little Input Method"
+    },
+    {
+      "name": "ime_desc",
+      "value": "An input method powered by the Rime engine"
+    },
+    {
+      "name": "subtype_chinese_pinyin",
+      "value": "Chinese (Pinyin)"
+    },
+    {
+      "name": "subtype_english",
+      "value": "English"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "phone",
+      "tablet",
+      "2in1"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "description": "$string:EntryAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:EntryAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ]
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "EntryBackupAbility",
+        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ]
+      },
+      {
+        // The Rime input method itself.  Declaring this extension is what makes
+        // the keyboard appear under Settings > System > Input methods.
+        "name": "RimeInputMethodExtension",
+        // Deliberately NOT "runWithMainProcess": keeping the keyboard in its own
+        // process preserves the isolation HarmonyOS gives an input method, which
+        // is the safer arrangement for something that sees every keystroke in
+        // every other app.  The cost is that configuration has to cross a process
+        // boundary; see common/ConfigHandoff.ets.
+        "srcEntry": "./ets/inputmethod/RimeInputMethodExtension.ets",
+        "description": "$string:ime_desc",
+        "icon": "$media:icon",
+        "label": "$string:ime_label",
+        "type": "inputMethod",
+        "exported": true,
+        "metadata": [
+          {
+            "name": "ohos.extension.input_method",
+            "resource": "$profile:input_method_config"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "allowToBackupRestore": true,
+  "extraInfo": {
+    "excludeDirs": [
+      "rime/user/build"
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+// -*- C++ -*-
+//===----------------------------------------------------------------------===//
+// A minimal std::source_location for toolchains whose libc++ predates it.
+//
+// The HarmonyOS NDK ships libc++ 15, which has <format> and <span> but no
+// <source_location> at all.  fcitx5 5.1.23 includes it unconditionally from
+// fcitx-utils/log.h, so a build for OHOS needs the header to exist.
+//
+// This is a faithful implementation of the C++20 interface (the same approach
+// libc++ itself took when it gained the header): the values come from the
+// compiler builtins at the call site.
+//
+// It is only used because the platform header is absent; if a future SDK adds
+// <source_location>, this file should be dropped.
+//===----------------------------------------------------------------------===//
+
+#ifndef FCITX5_OHOS_CXX_COMPAT_SOURCE_LOCATION
+#define FCITX5_OHOS_CXX_COMPAT_SOURCE_LOCATION
+
+#if defined(__has_include)
+#  if __has_include(<__config>)
+#    include <__config>
+#  endif
+#endif
+
+#include <cstdint>
+
+#if defined(_LIBCPP_VERSION) && _LIBCPP_VERSION >= 160000
+// A real implementation is available; defer to it rather than shadowing it.
+#  include_next <source_location>
+#else
+
+namespace std {
+
+struct source_location {
+  /// Creates a source_location for the current call site.
+  static consteval source_location
+  current(const char* __file = __builtin_FILE(),
+          const char* __function = __builtin_FUNCTION(),
+          uint_least32_t __line = __builtin_LINE(),
+          uint_least32_t __column = 0) noexcept {
+    source_location __loc;
+    __loc.__file_ = __file;
+    __loc.__function_ = __function;
+    __loc.__line_ = __line;
+    __loc.__column_ = __column;
+    return __loc;
+  }
+
+  constexpr source_location() noexcept = default;
+
+  constexpr uint_least32_t line() const noexcept { return __line_; }
+  constexpr uint_least32_t column() const noexcept { return __column_; }
+  constexpr const char* file_name() const noexcept { return __file_; }
+  constexpr const char* function_name() const noexcept { return __function_; }
+
+ private:
+  const char* __file_ = "";
+  const char* __function_ = "";
+  uint_least32_t __line_ = 0;
+  uint_least32_t __column_ = 0;
+};
+
+}  // namespace std
+
+#endif  // _LIBCPP_VERSION check
+
+#endif  // FCITX5_OHOS_CXX_COMPAT_SOURCE_LOCATION
