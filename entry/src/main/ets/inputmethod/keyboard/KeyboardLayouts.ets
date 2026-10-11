@@ -169,7 +169,7 @@ function enterKey(weight: number): KeySpec {
 //   Q W E R T Y U I O P     each carrying its digit as a corner hint
 //   A S D F G H J K L
 //   [⇧] Z X C V B N M [⌫]
-//   [?123] , [中/英] [space] . [↵]
+//   [?123] [中/英] , [space] . [↵]
 // ---------------------------------------------------------------------------
 
 export const LETTER_ROWS: KeySpec[][] = [
@@ -193,8 +193,8 @@ export const LETTER_ROWS: KeySpec[][] = [
   ],
   [
     functionKey(KeyKind.Switch, '?123', 15, PanelKind.Number),
-    charKey(',', '', ',', 0, 10),
     functionKey(KeyKind.Ascii, '中', 15),
+    charKey(',', '', ',', 0, 10),
     functionKey(KeyKind.Space, '空格', 0),
     charKey('.', '', '.', 0, 10),
     enterKey(15)

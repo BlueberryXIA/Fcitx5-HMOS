@@ -83,17 +83,13 @@ export class KeyboardHub {
 
     const committedText: string | null = engine.handleKey(keyCode, unicodeChar, modifiers);
     if (committedText !== null) {
-      // commitText() drops the composing overlay before inserting.
       this.connection.commitText(committedText);
-      return;
     }
-
-    this.syncPreview();
-  }
-
-  /** Mirrors the engine's composing text into the editor. */
-  private syncPreview(): void {
-    this.connection.updatePreview(this.engine.getPreedit());
+    // Nothing else to do here.  The composing text is not pushed into the editor
+    // as preview text any more: an application that ignores setPreviewText made
+    // every keystroke hold the channel until the deadline and delayed the text
+    // that actually mattered.  KeyboardPanel draws the pinyin above the
+    // candidates instead, from the state the engine publishes.
   }
 
   // -------------------------------------------------------------------------
@@ -131,16 +127,16 @@ export class KeyboardHub {
 
   onEnter(): void {
     const committedText: string | null = this.engine.commitComposition();
-    if (committedText !== null && committedText.length > 0) {
-      this.connection.commitText(committedText);
-    }
-    // A newline has no keysym Rime acts on, so insert it directly.
-    this.connection.commitText('\n');
+    // A newline has no keysym Rime acts on, so it is inserted directly.  The
+    // composition and the newline go out as ONE insert rather than two: two
+    // calls would have to reach the client in order, and a single round trip is
+    // both cheaper and impossible to reorder.
+    const composition: string = committedText === null ? '' : committedText;
+    this.connection.commitText(composition + '\n');
   }
 
   onEscape(): void {
     this.engine.clearComposition();
-    this.connection.clearPreview();
   }
 
   /** `globalIndex` is an index into the whole candidate list. */
@@ -148,9 +144,7 @@ export class KeyboardHub {
     const committedText: string | null = this.engine.selectCandidate(globalIndex);
     if (committedText !== null) {
       this.connection.commitText(committedText);
-      return;
     }
-    this.syncPreview();
   }
 
   onToggleAsciiMode(): void {

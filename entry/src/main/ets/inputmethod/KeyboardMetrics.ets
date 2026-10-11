@@ -17,7 +17,7 @@
  * deterministic even if the platform refuses the panel resize, and the extension
  * converts it to px (via display.densityPixels) to size the panel window.
  */
-export const KEYBOARD_HEIGHT_VP: number = 280;
+export const KEYBOARD_HEIGHT_VP: number = 268;
 
 /**
  * The candidate strip above the keys.
@@ -27,7 +27,7 @@ export const KEYBOARD_HEIGHT_VP: number = 280;
  * three were once duplicated here with *different* row-gap value, which meant a
  * wrong import silently changed the layout; the duplicates are gone.
  */
-export const CANDIDATE_BAR_HEIGHT_VP: number = 48;
+export const CANDIDATE_BAR_HEIGHT_VP: number = 33;
 
 /**
  * Upper bound the platform accepts for a panel's height, as a share of the

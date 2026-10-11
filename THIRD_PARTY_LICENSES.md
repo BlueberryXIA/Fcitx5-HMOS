@@ -105,6 +105,7 @@ Copyright (C) 2026 Haochen Xia
 | `inputmethod/keyboard/KeyboardTheme.ets` | `ThemePreset.MaterialLight` 的配色字段与取值 |
 | `inputmethod/keyboard/PickerData.ets` | `PickerData.kt` 的分类结构与标签 |
 | `pages/KeyboardPanel.ets` | `PickerPageUi.Density` 的网格尺寸（符号 10×3、Emoji 7×3） |
+| `inputmethod/keyboard/LongPressOptions.ets` | 长按字母键时给出的符号。这张配对表本身转录自 fcitx5 的 `src/im/keyboard/longpress.cpp`（LGPL-2.1-or-later），经由 fcitx5-android 的 `input/popup/PopupPreset.kt` 转写；本项目只取每条配对中的符号，去掉了上游附带的带变音符号的形式 |
 
 **兼容性链条成立**：fcitx5-android 是 `LGPL-2.1-or-later` → 可选择 LGPL-3.0 → LGPL-3.0 与 AGPL-3.0 兼容。因此这些派生文件整体置于 AGPL-3.0 之下是合法的，**不需要重写**。
 

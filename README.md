@@ -121,7 +121,7 @@ Copyright (C) 2026 Haochen Xia
 2. `RimeKeys` 把鸿蒙键码翻译成 **X11 keysym**（librime 的键码约定）
 3. `rime.processKey(session, keysym, mask)`
 4. `rime.getCommit()` 取提交文本、`rime.getContext()` 取候选与预编辑
-5. 提交文本 → `InputConnection.commitText()`；预编辑 → `setPreviewTextSync()`
+5. 提交文本 → `InputConnection.commitText()`；预编辑由键盘自己显示（见 §6 相关条目）
 6. 状态写入 `LocalStorage`，`KeyboardPanel` 通过 `@LocalStorageLink` 自动刷新
 
 ---
@@ -247,10 +247,11 @@ OHOS sysroot 自带 `libuv.so`（1.44.1）与 `uv.h`。上游 libuv 在 musl 上
 | `Panel` 创建后必须显式 `show()` | 点输入框键盘不弹 | 文档规定 `show()` 只能在输入法绑定到编辑框后调用，因此放在 `inputStart` 里；`inputStop` 里 `hide()` |
 | 固定软键盘面板必须 `resize()` | 面板高度为 0，页面 `height('100%')` 渲染成空 | 创建后 `resize(屏宽, 屏高 × 0.42)`（文档限制不超过屏高 0.7）；页面另加 `minHeight` 兜底 |
 | **`deleteForward` / `deleteBackward` 命名与语义相反** | 退格键只能删预编辑、删不掉文本框内容 | 官方文档：`deleteForward(n)` 删光标**前**，`deleteBackward(n)` 删光标**后**。退格必须用 `deleteForwardSync`。`getForward`/`getBackward` 同样相反 |
-| `setPreviewText` 的 range 不能是任意负数 | 预上屏一直静默失败（异常被吞） | 只有 `{ start: -1, end: -1 }` 表示"替换整个预上屏区域"，其它负值是参数错误 |
-| `finishTextPreviewSync()` 会把预上屏**提交**进文档 | 会在光标处留下生僻的按键字母 | 提交时用 `setPreviewTextSync('', {-1,-1})` 清除预上屏，再 `insertTextSync` 插入正式文本 |
+| 用 `setPreviewText()` 把拼音内联显示在输入框里 | 不支持预上屏的应用会**一直不回应**，每次按键都占住 IPC 通道直到超时，表现为**选了候选词要过很久才上屏**。对比：微信输入法等在对同一应用输入时毫无延迟，因为它们根本不用预上屏 | **放弃预上屏**，改由键盘自己在候选词上方画一行拼音（`KeyboardPanel.PinyinRow`），完全不需要应用配合 |
 | `InputMethodSubtype.mode` 只接受 `'upper' \| 'lower'` | 配置写入 `"pinyin"`/`"latin"` 属非法值 | 移除 `mode`，用 `locale` + `id` 区分中英 |
 | `input_method_config.json` 必须严格 JSON | 加注释后 `CompileResource` 直接失败（错误码 11203002） | 该 profile 文件不接受 `//` 注释 |
+| 用 `insertTextSync()` 等同步接口提交文本 | 向不响应的应用（如在兼容层里运行的应用）输入时，主线程会**停在阻塞式 IPC 上**，约 6 秒后被系统判为 `THREAD_BLOCK_6S` 而冻结进程 | 改用异步版本（`insertText()` 等），经 `InputConnection` 内的一条 Promise 队列串行化；每个调用再用 `settleWithin()` 加上限时——因为异步调用只是不阻塞线程，遇到**永不回应**的应用时它的 Promise 永不 settle，一条单纯等待的队列会被永久堵死 |
+| 键位行用固定高度、而面板顶部又加了内容 | 底部按键被挤出可视区域 | 与符号/Emoji 网格同理：键位行改用 `layoutWeight(1)` 平分顶部剩余的空间，新增的拼音行（16vp）与临时提示行都不会再裁掉底行 |
 | 按键行 `Row` 未设 `.width('100%')` | 每个字母键宽度都不同 | `layoutWeight` 需要父容器有确定的主轴尺寸；否则 ArkUI 退化为按内容宽度排布。每个键行必须显式 `width('100%')` |
 | 页面根节点用 `height('100%')` | 底部一行离屏幕底部过远 | 根节点改为固定 vp 高度，与 `panel.resize()` 用同一套几何常量（`KeyboardMetrics.ets`），面板尺寸即内容尺寸 |
 | 收起键盘按钮放在独立状态栏 | 按钮位置与其它键错位 | 移到候选词栏右上角，不参与按键行的等分布局；有未确认输入时同一位置显示为 ✕，按下清空拼音与预上屏（见 §7） |
@@ -708,7 +709,7 @@ grammarLanguage=wanxiang-lts-zh-hans file=/data/.../shared/wanxiang-lts-zh-hans.
 ### 输入
 
 - 按键 → X11 keysym → `process_key`
-- 预编辑用 `setPreviewTextSync()` 内联显示
+- 预编辑由键盘自己显示在候选词上方的一行里（不写入编辑器）
 - 候选栏点击 / 空格选词 → 提交文本用 `insertTextSync()` 写入
 
 ### 输入状态与三个层次
@@ -718,8 +719,11 @@ grammarLanguage=wanxiang-lts-zh-hans file=/data/.../shared/wanxiang-lts-zh-hans.
 | 层 | 存放位置 | 清除方式 |
 | --- | --- | --- |
 | 原始拼音及其候选 | librime 的 composition | `rime.clearComposition()` |
-| 已解析成字、内联显示但**尚未写入文档**的预上屏 | 编辑器的 preview text | `setPreviewTextSync('', {-1,-1})` |
 | 已最终上屏的文字 | 文档本身 | **不处理**——它已经是用户的内容 |
+
+（早先还有第三层：把拼音作为 preview text 内联显示在编辑器里。该功能已**移除**，原因见 §6 踩坑表。）
+
+现在拼音由键盘自己绘制，位于候选词上方同一条色带上，与候选词**同色**、字号更小、同样靠左对齐。输入期间左侧的三点设置按钮会让位，使拼音与候选词都从最左缘开始；提交或删除后按钮自动恢复。
 
 候选栏右上角的按键按当前状态切换语义：
 

@@ -39,6 +39,25 @@ export class KeyboardTheme {
   static readonly activeKey: string = '#80CBC4';
   static readonly activeKeyText: string = '#37474F';
 
+  // The pressed shade of each surface above.
+  //
+  // A key that is held down takes a darker version of whatever colour it
+  // already has, rather than one shared highlight colour: a pressed Return key
+  // that turned the same grey as a pressed letter would lose the colour that
+  // tells the two apart.  Each is the base darkened by roughly the same amount,
+  // so the effect reads the same across the keyboard.
+
+  /** An ordinary key while held. */
+  static readonly keyPressed: string = '#E3E6E9';
+  /** A function key while held. */
+  static readonly altKeyPressed: string = '#C7CCD0';
+  /** Return while held. */
+  static readonly accentKeyPressed: string = '#4BA49A';
+  /** The space bar while held. */
+  static readonly spaceBarPressed: string = '#B3B9BD';
+  /** An engaged toggle while held. */
+  static readonly activeKeyPressed: string = '#6BB8B0';
+
   /** Preedit and candidate text in the candidate strip. */
   static readonly candidateText: string = '#37474F';
   /** Candidate comments, the page counter, and muted settings text (headings and hints). */
@@ -101,7 +120,7 @@ export const KEY_ROW_HEIGHT_VP: number = 46;
  * a tall white block with the text floating in it and blank white showing
  * underneath, which read as an empty box rather than a chip.
  */
-export const CANDIDATE_CHIP_HEIGHT_VP: number = 34;
+export const CANDIDATE_CHIP_HEIGHT_VP: number = 30;
 /** Font size of a letter or digit on a key. */
 export const KEY_TEXT_SIZE: number = 21;
 /** Font size of a label on a function key. */

@@ -11,7 +11,7 @@
  */
 
 /** Incremented for every delivery to the user. */
-export const BUILD: number = 18;
+export const BUILD: number = 41;
 
 export const VERSION_NAME: string = `1.0.${BUILD}`;
 
